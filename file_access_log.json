@@ -6,5 +6,21 @@
             "SHA1": "769f3c7a6c6f4bd2a8678210f9c96f9932a59c1e",
             "SHA256": "fbb43e462b44fdd6349e54c52715de69587e474046b7b68b3f92b5dfc987cc59"
         }
+    },
+    "/Users/kathan/Desktop/Digital-Forensics-in-High-Profile-Cybercrimes.pptx": {
+        "access_count": 1,
+        "hashes": {
+            "MD5": "d1c6ccf895b7b06f8d2e4e8db05ba660",
+            "SHA1": "b8408b3ff741ed21ff10761d3d3b65d3e74b60d7",
+            "SHA256": "6358b12ff7f2d81ecf79a998732a7c65e57d8adc96eba4a322aafd8984e64469"
+        }
+    },
+    "/Users/kathan/Desktop/Screenshot 2024-11-29 at 20.13.34.png": {
+        "access_count": 1,
+        "hashes": {
+            "MD5": "664e579acc513a4564093ab0472f5967",
+            "SHA1": "9b748fe65c1a5d4b7524a286b5d6f97ead8ed5a4",
+            "SHA256": "ab5688c0fb4362353c3265222c521e7f9b8222df257745f41e236f2023b62c17"
+        }
     }
 }

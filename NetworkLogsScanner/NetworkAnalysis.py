@@ -41,24 +41,32 @@ class AnalysisReport:
         return file_path.split('.')[-1]
 
     def analyze_with_virustotal(self, file_path):
+        # Upload file to VirusTotal for analysis
         url = "https://www.virustotal.com/api/v3/files"
-        with open(file_path, "rb") as file:
-            files = {"file": file}
-            response = requests.post(url, headers=self.headers, files=files)
+        try:
+            with open(file_path, "rb") as file:
+                response = requests.post(url, headers=self.headers, files={"file": file})
+                if response.status_code == 200:
+                    file_id = response.json().get("data", {}).get("id")
+                    # Fetch analysis report
+                    return self.get_virustotal_report(file_id)
+                else:
+                    raise Exception(f"VirusTotal API error: {response.status_code} - {response.text}")
+        except Exception as e:
+            print(f"Error during VirusTotal analysis: {e}")
+            return {}
 
-        if response.status_code == 200:
-            analysis_id = response.json().get('data', {}).get('id')
-            return self.fetch_virustotal_analysis(analysis_id)
-        else:
-            raise Exception(f"VirusTotal API Error: {response.json()}")
-
-    def fetch_virustotal_analysis(self, analysis_id):
-        url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"
-        response = requests.get(url, headers=self.headers)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception(f"Failed to fetch analysis details: {response.json()}")
+    def get_virustotal_report(self, file_id):
+        url = f"https://www.virustotal.com/api/v3/analyses/{file_id}"
+        try:
+            response = requests.get(url, headers=self.headers)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                raise Exception(f"Failed to fetch report: {response.status_code} - {response.text}")
+        except Exception as e:
+            print(f"Error fetching VirusTotal report: {e}")
+            return {}
 
     def analyze_pcap(self, file_path):
         capture = pyshark.FileCapture(file_path)
